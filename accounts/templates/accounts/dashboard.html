@@ -1,0 +1,61 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+
+{% include 'accounts/status.html' %}
+<br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>ЗАМОВНИКИ:</h5>
+		<hr>
+		<div class="card card-body">
+
+			<table class="table table-sm">
+				<tr>
+					<th></th>
+					<th>ЗАМОВНИКИ</th>
+					<th>ТЕЛЕФОН</th>
+				</tr>
+
+				{% for customer in customers %}
+					<tr>
+							<td><a class="btn btn-sm btn-info" href="{% url 'customers' customer.id %}">Інфо</a></td>
+							<td>{{customer.name}}</td>
+							<td>{{customer.phone}}</td>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>Останні замовлення</h5>
+		<hr>
+		<div class="card card-body">
+			
+			<table class="table table-sm">
+				<tr>
+					<th>Товар</th>
+					<th>Дата Замовлення</th>
+					<th>Статус</th>
+
+					<th>Видалити</th>
+				</tr>
+				{% for order in orders %}
+					<tr>
+							<td>{{order.product}}</td>
+							<td>{{order.date_created}}</td>
+							<td>{{order.status}}</td>
+
+							<td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Видалити</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock content %}
